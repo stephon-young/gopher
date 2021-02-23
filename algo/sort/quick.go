@@ -13,32 +13,36 @@ func QuickSort(arr []int, low, high int) {
 // 快排的两种方法。
 func split1(arr []int, low, high int) int {
 	x := arr[low]
-	i, j := low+1, high
+	i, j := low, high
 
 	fmt.Printf("low=%d, high=%d\n", low, high)
 
 	for i < j {
+		for i < j {
+			if x > arr[j] {
+				break
+			}
+			j--
+		}
+		if i != j {
+			arr[i], arr[j] = arr[j], arr[i]
+			i++
+		}
+		fmt.Printf("left i=%d,j=%d, arr=%v\n", i, j, arr)
+
 		for i < j {
 			if x < arr[i] {
 				break
 			}
 			i++
 		}
-		fmt.Printf("i = %d\n", i)
-		for i < j {
-			if x < arr[j] {
-				break
-			}
+		if i != j {
+			arr[i], arr[j] = arr[j], arr[i]
 			j--
 		}
-		fmt.Printf("j = %d\n", j)
-
-		fmt.Printf("before i=%d,j=%d, a[i]=%d,a[j]=%d\n", i, j, arr[i], arr[j])
-		arr[i], arr[j] = arr[j], arr[i]
-		fmt.Printf("after  i=%d,j=%d, a[i]=%d,a[j]=%d\n", i, j, arr[i], arr[j])
-		break
+		fmt.Printf("right i=%d,j=%d, arr=%v\n", i, j, arr)
 	}
-	arr[i], arr[low] = arr[low], arr[i]
+	arr[i] = x
 	fmt.Printf("i = %d, arr=%v\n\n", i, arr)
 	return i
 }
